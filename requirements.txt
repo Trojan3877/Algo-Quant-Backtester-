@@ -37,3 +37,8 @@ snowflake-sqlalchemy>=1.4
 
 # Others
 pyyaml>=6.0
+
+
+git add requirements.txt
+git commit -m "Add requirements.txt with project dependencies"
+git push
