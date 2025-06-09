@@ -1,0 +1,39 @@
+# Core dependencies for AlgoQuant Backtester & Signal Engine
+
+# Data manipulation & storage
+pandas>=1.3
+numpy>=1.21
+pyarrow>=6.0
+
+# Quantitative modeling
+scikit-learn>=1.0
+xgboost>=1.5
+
+# Deep learning
+tensorflow>=2.8
+torch>=1.11
+torchvision>=0.12
+
+# Streaming & ingestion
+kafka-python>=2.0
+
+# Backtesting
+vectorbt>=0.23
+
+# API
+fastapi>=0.75
+uvicorn[standard]>=0.17
+
+# MLOps & tracking
+dvc>=2.10
+mlflow>=1.25
+
+# Dev tools
+pytest>=7.1
+flake8>=4.0
+
+# Snowflake connector
+snowflake-sqlalchemy>=1.4
+
+# Others
+pyyaml>=6.0
