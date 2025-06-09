@@ -19,6 +19,10 @@ models/*
 # Jupyter
 .ipynb_checkpoints/
 
+git add .gitignore
+git commit -m "Add .gitignore"
+git push
+
 # Terraform
 terraform/.terraform/
 terraform/*.tfstate
