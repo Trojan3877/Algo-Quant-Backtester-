@@ -1,0 +1,47 @@
+# dvc.yaml
+# DVC Pipeline for AlgoQuant Backtester & Signal Engine
+
+stages:
+  ingest:
+    cmd: python src/ingestion/ingest.py
+    deps:
+      - src/ingestion/ingest.py
+    outs:
+      - data/raw/spy.parquet
+
+  features:
+    cmd: python src/features/build_features.py
+    deps:
+      - src/features/build_features.py
+      - data/raw/spy.parquet
+    outs:
+      - data/processed/features.csv
+
+  train_tf:
+    cmd: python src/models/tf_signal.py
+    deps:
+      - src/models/tf_signal.py
+      - data/processed/features.csv
+    outs:
+      - models/tf_signal.h5
+
+  train_torch:
+    cmd: python src/models/torch_rl.py
+    deps:
+      - src/models/torch_rl.py
+      - data/processed/features.csv
+    outs:
+      - models/torch_rl_agent.pth
+
+  backtest:
+    cmd: python src/backtest/backtest.py --config configs/backtest.yaml
+    deps:
+      - src/backtest/backtest.py
+      - models/tf_signal.h5
+      - models/torch_rl_agent.pth
+    outs:
+      - backtest/results.csv
+
+git add dvc.yaml
+git commit -m "Add DVC pipeline definition"
+git push
