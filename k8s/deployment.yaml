@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: algoquant-backtester
+  labels:
+    app: algoquant-backtester
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: algoquant-backtester
+  template:
+    metadata:
+      labels:
+        app: algoquant-backtester
+    spec:
+      containers:
+        - name: web
+          image: your-docker-registry/algoquant-backtester:latest
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /docs
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /docs
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
+mkdir -p k8s
+git add k8s/deployment.yaml
+git commit -m "Add Kubernetes deployment manifest"
+git push
