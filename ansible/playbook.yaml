@@ -1,0 +1,15 @@
+---
+- name: Deploy AlgoQuant Backtester & Signal Engine Stack
+  hosts: all
+  become: true
+  vars_files:
+    - group_vars/all.yaml
+
+  roles:
+    - role: k8s_deploy_api
+    - role: mlflow_deploy
+    - role: prometheus_grafana
+
+git add ansible/playbook.yaml
+git commit -m "Add Ansible master playbook"
+git push
