@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: algoquant-web
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - WINDOW_SIZE=10
+
+  # Optional MLflow service
+  mlflow:
+    image: mlflow/mlflow:latest
+    container_name: algoquant-mlflow
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow-artifacts:/mlflow/artifacts
+    command: mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root /mlflow/artifacts
+
+volumes:
+  mlflow-artifacts:
+
+
+git add docker-compose.yml
+git commit -m "Add docker-compose for local dev stack"
+git push
