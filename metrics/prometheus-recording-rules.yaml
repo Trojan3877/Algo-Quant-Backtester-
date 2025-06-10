@@ -1,0 +1,24 @@
+# metrics/prometheus-recording-rules.yaml
+
+groups:
+  - name: algoquant-recording-rules
+    rules:
+      - record: job:http_inprogress_requests:sum
+        expr: sum(http_inprogress_requests{job="algoquant-backtester"})
+      
+      - record: job:request_latency_p95:histogram_quantile
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job="algoquant-backtester"}[5m])) by (le))
+      
+      - record: job:error_rate
+        expr: sum(rate(http_requests_total{job="algoquant-backtester", status!~\"2..\"}[5m])) / sum(rate(http_requests_total{job="algoquant-backtester"}[5m]))
+      
+      - record: backtest:pnl_mean
+        expr: avg_over_time(backtest_pnl_sum[1d])
+      
+      - record: backtest:pnl_stddev
+        expr: stddev_over_time(backtest_pnl_sum[1d])
+
+
+git add metrics/prometheus-recording-rules.yaml
+git commit -m "Add Prometheus recording rules for aggregated metrics"
+git push
