@@ -1,0 +1,25 @@
+# CODEOWNERS
+
+# Signal service
+/src/serve/          @Trojan3877
+
+# Models & backtester
+/src/models/         @Trojan3877
+/src/backtest/       @Trojan3877
+
+# Infrastructure & automation
+/k8s/                @Trojan3877
+/helm/               @Trojan3877
+/ansible/            @Trojan3877
+/terraform/          @Trojan3877
+.github/workflows/   @Trojan3877
+
+# Documentation & governance
+/README.md           @Trojan3877
+/docs/               @Trojan3877
+CHANGELOG.md         @Trojan3877
+
+
+git add .github/CODEOWNERS
+git commit -m "Add CODEOWNERS for designated reviewers"
+git push
