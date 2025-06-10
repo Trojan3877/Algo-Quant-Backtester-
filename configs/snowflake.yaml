@@ -1,0 +1,28 @@
+# configs/snowflake.yaml
+
+# Snowflake connection settings
+snowflake:
+  account: "<YOUR_ACCOUNT_IDENTIFIER>"
+  user: "<YOUR_USERNAME>"
+  password: "<YOUR_PASSWORD>"
+  role: "SYSADMIN"
+  warehouse: "COMPUTE_WH"
+  database: "MARKET_DATA"
+  schema: "PUBLIC"
+
+# Example table to ingest
+ingestion:
+  table: "SPY_DAILY"
+  query: |
+    SELECT 
+      timestamp,
+      open,
+      high,
+      low,
+      close,
+      volume
+    FROM ${snowflake.database}.${snowflake.schema}.${snowflake.table}
+
+git add configs/snowflake.yaml
+git commit -m "Add Snowflake ingestion configuration"
+git push
