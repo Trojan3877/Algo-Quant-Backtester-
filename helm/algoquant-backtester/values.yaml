@@ -1,0 +1,36 @@
+# Default values for algoquant-backtester Helm chart
+
+replicaCount: 2
+
+image:
+  repository: your-docker-registry/algoquant-backtester
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  requests:
+    cpu: "200m"
+    memory: "256Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 60
+
+ingress:
+  enabled: false
+  className: nginx
+  host: algoquant.example.com
+  tls: false
+
+git add helm/algoquant-backtester/values.yaml
+git commit -m "Add Helm values.yaml for algoquant-backtester"
+git push
