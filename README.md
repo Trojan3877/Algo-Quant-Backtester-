@@ -1,5 +1,55 @@
 ![image](https://github.com/user-attachments/assets/f571895d-36ae-4d67-8ea4-71058850eefb)
 
+# AlgoQuant Backtester & Signal Engine
+
+![CI](https://github.com/Trojan3877/AlgoQuant-Backtester-Signal-Engine/actions/workflows/ci.yml/badge.svg)
+![CD](https://github.com/Trojan3877/AlgoQuant-Backtester-Signal-Engine/actions/workflows/deploy.yml/badge.svg)
+![CodeQL](https://github.com/Trojan3877/AlgoQuant-Backtester-Signal-Engine/workflows/Security%20-%20CodeQL%20Scan/badge.svg)
+![DVC](https://img.shields.io/badge/DVC-enabled-blue)
+![Docker](https://img.shields.io/docker/pulls/algoquant-backtester)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-ready-green)
+![Helm](https://img.shields.io/badge/Helm-chart-orange)
+![Ansible](https://img.shields.io/badge/Ansible-automated-yellowgreen)
+![Terraform](https://img.shields.io/badge/Terraform-managed-blue)
+![MLflow](https://img.shields.io/badge/MLflow-tracking-orange)
+![Prometheus](https://img.shields.io/badge/Prometheus-monitored-lightgrey)
+![Grafana](https://img.shields.io/badge/Grafana-visualized-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+End-to-end **DevMLOps** platform for **algorithmic trading**:
+1. **Data Ingestion:** Snowflake & Kafka → Parquet  
+2. **Feature Engineering:** technical indicators with `ta`  
+3. **Modeling:** TensorFlow LSTM & PyTorch DQN  
+4. **Backtesting:** walk-forward analysis & PnL evaluation  
+5. **Serving:** FastAPI → Docker → Kubernetes → Helm  
+6. **Automation:** DVC pipelines, GitHub Actions CI/CD, Terraform IaC, Ansible config  
+7. **Monitoring & Tracking:** Prometheus & Grafana, MLflow experiments  
+8. **Security & Compliance:** IAM least-privilege, CodeQL, SECURITY.md
+
+---
+
+## Quickstart
+
+```bash
+# Clone & bootstrap
+git clone https://github.com/Trojan3877/AlgoQuant-Backtester-Signal-Engine.git
+cd AlgoQuant-Backtester-Signal-Engine
+
+# Setup local environment
+cp .env.example .env
+make deps
+dvc pull
+docker-compose up -d
+
+# Run backtest
+make backtest
+
+# Deploy to Kubernetes (dev)
+kubectl apply -f k8s/
+helm install algoquant-backtester helm/algoquant-backtester
+
+# Deploy infra & app (prod)
+make deploy
 
 
 
