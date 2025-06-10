@@ -1,7 +1,8 @@
 ![image](https://github.com/user-attachments/assets/f571895d-36ae-4d67-8ea4-71058850eefb)
 
-# AlgoQuant Backtester & Signal Engine
+# AlgoQuant Backtester & Signal Engine 🚀
 
+![Capstone](https://img.shields.io/badge/Capstone-Complete-brightgreen.svg)
 ![CI](https://github.com/Trojan3877/AlgoQuant-Backtester-Signal-Engine/actions/workflows/ci.yml/badge.svg)
 ![CD](https://github.com/Trojan3877/AlgoQuant-Backtester-Signal-Engine/actions/workflows/deploy.yml/badge.svg)
 ![CodeQL](https://github.com/Trojan3877/AlgoQuant-Backtester-Signal-Engine/workflows/Security%20-%20CodeQL%20Scan/badge.svg)
@@ -14,6 +15,7 @@
 ![MLflow](https://img.shields.io/badge/MLflow-tracking-orange)
 ![Prometheus](https://img.shields.io/badge/Prometheus-monitored-lightgrey)
 ![Grafana](https://img.shields.io/badge/Grafana-visualized-blue)
+![Load Test](https://img.shields.io/badge/LoadTest-k6-red)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 End-to-end **DevMLOps** platform for **algorithmic trading**:
@@ -24,7 +26,7 @@ End-to-end **DevMLOps** platform for **algorithmic trading**:
 5. **Serving:** FastAPI → Docker → Kubernetes → Helm  
 6. **Automation:** DVC pipelines, GitHub Actions CI/CD, Terraform IaC, Ansible config  
 7. **Monitoring & Tracking:** Prometheus & Grafana, MLflow experiments  
-8. **Security & Compliance:** IAM least-privilege, CodeQL, SECURITY.md
+8. **Security & Compliance:** IAM least-privilege, CodeQL, SECURITY.md  
 
 ---
 
@@ -39,23 +41,20 @@ cd AlgoQuant-Backtester-Signal-Engine
 cp .env.example .env
 make deps
 dvc pull
-docker-compose up -d
+scripts/setup_local.sh
 
 # Run backtest
 make backtest
+
+# Deploy locally with Docker Compose
+docker-compose up -d
 
 # Deploy to Kubernetes (dev)
 kubectl apply -f k8s/
 helm install algoquant-backtester helm/algoquant-backtester
 
-# Deploy infra & app (prod)
+# Full prod deploy
 make deploy
-
-
-
-
-
-
 
 
 
