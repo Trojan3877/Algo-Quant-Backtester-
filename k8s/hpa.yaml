@@ -1,0 +1,24 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: algoquant-backtester-hpa
+  labels:
+    app: algoquant-backtester
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: algoquant-backtester
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
+
+git add k8s/hpa.yaml
+git commit -m "Add Kubernetes HPA manifest for autoscaling"
+git push
