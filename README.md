@@ -1,3 +1,17 @@
+![image](https://github.com/user-attachments/assets/f571895d-36ae-4d67-8ea4-71058850eefb)
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Algo-Quant-Backtester-
 The AlgoQuant Backtester &amp; Signal Engine is an end-to-end DevMLOps platform for developing, validating, and deploying algorithmic trading strategies. 
 
