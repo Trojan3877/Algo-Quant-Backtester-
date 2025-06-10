@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "algoquant-backtester.fullname" . }}
+  labels:
+    {{- include "algoquant-backtester.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ include "algoquant-backtester.name" . }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8000
+      protocol: TCP
+      name: http
+
+git add helm/algoquant-backtester/templates/service.yaml
+git commit -m "Add Helm service template for algoquant-backtester"
+git push
