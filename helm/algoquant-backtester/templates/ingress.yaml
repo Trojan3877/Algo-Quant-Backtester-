@@ -1,0 +1,38 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "algoquant-backtester.fullname" . }}-ingress
+  labels:
+    {{- include "algoquant-backtester.labels" . | nindent 4 }}
+  annotations:
+    {{- if .Values.ingress.tls }}
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    {{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "algoquant-backtester.fullname" . }}
+                port:
+                  number: {{ .Values.service.port }}
+  {{- if .Values.ingress.tls }}
+  tls:
+    - hosts:
+        - {{ .Values.ingress.host }}
+      secretName: {{ include "algoquant-backtester.fullname" . }}-tls
+  {{- end }}
+{{- end }}
+
+
+git add helm/algoquant-backtester/templates/ingress.yaml
+git commit -m "Add Helm ingress template for algoquant-backtester"
+git push
