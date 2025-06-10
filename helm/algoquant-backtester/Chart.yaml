@@ -1,0 +1,12 @@
+apiVersion: v2
+name: algoquant-backtester
+description: A Helm chart for deploying the AlgoQuant Backtester & Signal Engine
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+
+mkdir -p helm/algoquant-backtester
+git add helm/algoquant-backtester/Chart.yaml
+git commit -m "Add Helm Chart.yaml for algoquant-backtester"
+git push
