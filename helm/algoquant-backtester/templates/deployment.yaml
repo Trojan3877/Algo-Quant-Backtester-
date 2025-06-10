@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "algoquant-backtester.fullname" . }}
+  labels:
+    {{- include "algoquant-backtester.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "algoquant-backtester.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "algoquant-backtester.name" . }}
+    spec:
+      containers:
+        - name: {{ include "algoquant-backtester.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /docs
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /docs
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+
+
+mkdir -p helm/algoquant-backtester/templates
+git add helm/algoquant-backtester/templates/deployment.yaml
+git commit -m "Add Helm deployment template for algoquant-backtester"
+git push
