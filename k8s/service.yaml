@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: algoquant-backtester
+  labels:
+    app: algoquant-backtester
+spec:
+  type: ClusterIP  # Change to LoadBalancer for cloud deployments
+  selector:
+    app: algoquant-backtester
+  ports:
+    - port: 80
+      targetPort: 8000
+      protocol: TCP
+      name: http
+
+
+git add k8s/service.yaml
+git commit -m "Add Kubernetes service manifest"
+git push
