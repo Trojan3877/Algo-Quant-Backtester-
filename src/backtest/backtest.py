@@ -1,94 +1,130 @@
-"""
-backtest.py
-
-Module: Backtesting Engine
-Author: Corey Leath
-
-Performs backtests for both TensorFlow and PyTorch models over processed features,
-using walk-forward analysis and recording performance metrics.
-"""
-
 import pandas as pd
 import numpy as np
-import joblib
-import torch
-from src.models.tf_signal import build_model
-from src.models.torch_rl import DQNAgent
-import yaml
-import os
+from .metrics import Metrics
+from .plotting import Plotter
 
-def load_features(path="data/processed/features.csv"):
-    """Load engineered features into DataFrame."""
-    df = pd.read_csv(path, parse_dates=['timestamp'])
-    return df
 
-def walk_forward_backtest(df, model_type, config):
+class Backtester:
     """
-    Perform walk-forward backtest.
-    
-    Args:
-        df (pd.DataFrame): Features with timestamp.
-        model_type (str): 'tf' or 'torch'.
-        config (dict): Backtest settings.
-    
-    Returns:
-        results (pd.DataFrame): Backtest PnL or returns over time.
+    Core backtesting engine for executing trading strategies.
+
+    Designed for institutional-quality research:
+    - Strategy plug-in system
+    - Vectorized performance engine
+    - Risk metrics (Sharpe, Sortino, MDD, etc.)
+    - ML-compatible prediction + signal generation
     """
-    window = config['window']
-    step = config['step']
-    results = []
-    
-    for start in range(0, len(df) - window, step):
-        train_df = df.iloc[start:start + window]
-        test_df = df.iloc[start + window:start + window + config['horizon']]
-        
-        # Load and predict
-        if model_type == 'tf':
-            model = tf.keras.models.load_model("models/tf_signal.h5")
-            X_test = train_df[['sma_20', 'rsi_14', 'atr_14']].tail(config['horizon']).values.reshape(-1, config['horizon'], 3)
-            preds = model.predict(X_test).flatten()
-        else:
-            agent = DQNAgent(state_dim=1, action_dim=3)
-            agent.load_state_dict(torch.load("models/torch_rl_agent.pth"))
-            agent.eval()
-            # Simplified: use closing return as state
-            states = test_df['close'].pct_change().dropna().values.reshape(-1, 1)
-            with torch.no_grad():
-                preds = agent(torch.tensor(states, dtype=torch.float32)).argmax(dim=1).numpy()
-        
-        # Compute PnL or return metric
-        actual_returns = test_df['close'].pct_change().fillna(0).values
-        pnl = np.sum(preds * actual_returns)  # simplistic PnL
-        results.append({
-            'start': df.iloc[start]['timestamp'],
-            'end': test_df.iloc[-1]['timestamp'],
-            'pnl': pnl
-        })
-    
-    return pd.DataFrame(results)
 
-def main(config_path="configs/backtest.yaml"):
-    """Load config, run backtest for each model, and save results."""
-    with open(config_path) as f:
-        config = yaml.safe_load(f)
-    
-    df = load_features()
-    
-    # Run for TF model
-    tf_results = walk_forward_backtest(df, 'tf', config)
-    tf_results.to_csv("backtest/tf_backtest.csv", index=False)
-    
-    # Run for Torch RL model
-    torch_results = walk_forward_backtest(df, 'torch', config)
-    torch_results.to_csv("backtest/torch_backtest.csv", index=False)
-    
-    print("Backtests completed. Results saved to backtest/*.csv")
+    def __init__(
+        self,
+        data_path: str,
+        strategy,
+        initial_capital: float = 100_000,
+        commission: float = 0.0,
+        slippage: float = 0.0,
+    ):
+        """
+        Parameters:
+            data_path (str): Path to CSV with market data (must contain 'Close').
+            strategy (object): Strategy class instance with .generate_signals(data)
+            initial_capital (float): Starting portfolio value.
+            commission (float): Cost per trade.
+            slippage (float): Price adjustment for fills.
+        """
+        self.data_path = data_path
+        self.strategy = strategy
+        self.initial_capital = initial_capital
+        self.commission = commission
+        self.slippage = slippage
 
-if __name__ == "__main__":
-    # Ensure backtest directory exists
-    os.makedirs("backtest", exist_ok=True)
-    main()
+        self.data = None
+        self.results = None
 
-git add src/backtest/backtest.py
-git commit -m "Add backtesting engine with walk-forward analysis"
-git push
+    # ---------------------------------------------------------
+    # Load Data
+    # ---------------------------------------------------------
+    def load_data(self):
+        """Load price data and validate."""
+        df = pd.read_csv(self.data_path)
+
+        required_cols = ["Close"]
+        for col in required_cols:
+            if col not in df.columns:
+                raise ValueError(f"Missing required column: {col}")
+
+        df["Returns"] = df["Close"].pct_change()
+        df.dropna(inplace=True)
+
+        self.data = df
+
+    # ---------------------------------------------------------
+    # Execute Strategy
+    # ---------------------------------------------------------
+    def run(self):
+        """Run the trading strategy and compute equity curve."""
+
+        if self.data is None:
+            self.load_data()
+
+        # Strategy should return a vector of positions (+1, -1, 0)
+        self.data["Signal"] = self.strategy.generate_signals(self.data)
+
+        # Apply slippage
+        close_price = self.data["Close"] * (1 + self.slippage)
+
+        # PnL = position * next_day_return
+        self.data["Strategy_Returns"] = (
+            self.data["Signal"].shift(1) * self.data["Returns"]
+        )
+        self.data["Strategy_Returns"].fillna(0, inplace=True)
+
+        # Transaction cost model
+        self.data["Trade"] = self.data["Signal"].diff().abs()
+        self.data["Transaction_Cost"] = self.data["Trade"] * self.commission
+
+        self.data["Net_Returns"] = (
+            self.data["Strategy_Returns"] - self.data["Transaction_Cost"]
+        )
+
+        # Equity Curve
+        self.data["Equity"] = (
+            self.initial_capital * (1 + self.data["Net_Returns"]).cumprod()
+        )
+
+        # Save results
+        self.results = self.data
+
+        return self.results
+
+    # ---------------------------------------------------------
+    # Metrics
+    # ---------------------------------------------------------
+    def get_metrics(self):
+        """Compute a full suite of professional quant metrics."""
+        if self.results is None:
+            raise RuntimeError("Run backtest before calling get_metrics().")
+
+        m = Metrics(self.results["Net_Returns"], self.results["Equity"])
+        return m.compute_all()
+
+    # ---------------------------------------------------------
+    # Plotting
+    # ---------------------------------------------------------
+    def plot(self):
+        """Generate all standard backtesting plots."""
+        if self.results is None:
+            raise RuntimeError("Run backtest before calling plot().")
+
+        p = Plotter(self.results)
+        p.plot_equity_curve()
+        p.plot_drawdown()
+        p.plot_return_distribution()
+        p.plot_rolling_sharpe()
+
+    # ---------------------------------------------------------
+    # Save Results
+    # ---------------------------------------------------------
+    def save_results(self, out_path="backtest_results.csv"):
+        if self.results is None:
+            raise RuntimeError("Run backtest before saving results.")
+        self.results.to_csv(out_path, index=False)
