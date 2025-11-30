@@ -1,0 +1,33 @@
+Algo-Quant-Backtester-/
+│── src/
+│   ├── data_loader.py
+│   ├── indicators.py
+│   ├── strategies/
+│   │    ├── sma_strategy.py
+│   │    ├── rsi_strategy.py
+│   ├── backtester.py
+│   ├── metrics.py
+│   ├── plotting.py
+│
+│── tests/
+│   ├── test_backtester.py
+│   ├── test_indicators.py
+│   ├── test_metrics.py
+│
+│── notebooks/
+│   ├── demo.ipynb
+│
+│── configs/
+│   ├── example_config.yaml
+│
+│── data/
+│   ├── sample_data.csv
+│
+│── Dockerfile
+│── requirements.txt
+│── README.md
+│── LICENSE
+│── .gitignore
+│── .env.example
+│── pyproject.toml  (optional but recommended)
+│── mlflow_tracking/ (optional)
