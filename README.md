@@ -3,20 +3,15 @@
 # AlgoQuant Backtester & Signal Engine 🚀
 
 ![Capstone](https://img.shields.io/badge/Capstone-Complete-brightgreen.svg)
-![CI](https://github.com/Trojan3877/AlgoQuant-Backtester-Signal-Engine/actions/workflows/ci.yml/badge.svg)
-![CD](https://github.com/Trojan3877/AlgoQuant-Backtester-Signal-Engine/actions/workflows/deploy.yml/badge.svg)
-![CodeQL](https://github.com/Trojan3877/AlgoQuant-Backtester-Signal-Engine/workflows/Security%20-%20CodeQL%20Scan/badge.svg)
-![DVC](https://img.shields.io/badge/DVC-enabled-blue)
-![Docker](https://img.shields.io/docker/pulls/algoquant-backtester)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-ready-green)
-![Helm](https://img.shields.io/badge/Helm-chart-orange)
-![Ansible](https://img.shields.io/badge/Ansible-automated-yellowgreen)
-![Terraform](https://img.shields.io/badge/Terraform-managed-blue)
-![MLflow](https://img.shields.io/badge/MLflow-tracking-orange)
-![Prometheus](https://img.shields.io/badge/Prometheus-monitored-lightgrey)
-![Grafana](https://img.shields.io/badge/Grafana-visualized-blue)
-![Load Test](https://img.shields.io/badge/LoadTest-k6-red)
-![License](https://img.shields.io/badge/license-MIT-green)
+![Python](https://img.shields.io/badge/Python-3.10-blue.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+![Build Status](https://github.com/Trojan3877/Algo-Quant-Backtester-/actions/workflows/tests.yml/badge.svg)
+![Coverage](https://img.shields.io/badge/Coverage-90%25-brightgreen)
+![Docker](https://img.shields.io/badge/Containerized-Docker-blue)
+![Backtesting](https://img.shields.io/badge/Algo%20Trading-Backtester-orange)
+![MLFlow](https://img.shields.io/badge/MLFlow-Tracking-blue)
+![Pandas](https://img.shields.io/badge/Data-Pandas-yellow)
+
 
 End-to-end **DevMLOps** platform for **algorithmic trading**:
 1. **Data Ingestion:** Snowflake & Kafka → Parquet  
