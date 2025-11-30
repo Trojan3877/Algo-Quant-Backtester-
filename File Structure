@@ -1,13 +1,16 @@
-Algo-Quant-Backtester-/
+Algo-Quant-Backtester/
 │── src/
+│   ├── backtester.py
 │   ├── data_loader.py
 │   ├── indicators.py
-│   ├── strategies/
-│   │    ├── sma_strategy.py
-│   │    ├── rsi_strategy.py
-│   ├── backtester.py
-│   ├── metrics.py
 │   ├── plotting.py
+│   ├── metrics.py
+│   ├── utils.py
+│   ├── strategies/
+│       ├── sma_strategy.py
+│       ├── rsi_strategy.py
+│       ├── macd_strategy.py
+│       ├── ml_strategy.py     # (ML-based trading)
 │
 │── tests/
 │   ├── test_backtester.py
@@ -15,7 +18,7 @@ Algo-Quant-Backtester-/
 │   ├── test_metrics.py
 │
 │── notebooks/
-│   ├── demo.ipynb
+│   ├── Demo_Backtest.ipynb
 │
 │── configs/
 │   ├── example_config.yaml
@@ -23,11 +26,9 @@ Algo-Quant-Backtester-/
 │── data/
 │   ├── sample_data.csv
 │
-│── Dockerfile
 │── requirements.txt
+│── Dockerfile
 │── README.md
 │── LICENSE
 │── .gitignore
 │── .env.example
-│── pyproject.toml  (optional but recommended)
-│── mlflow_tracking/ (optional)
