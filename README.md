@@ -1,29 +1,123 @@
-![image](https://github.com/user-attachments/assets/f571895d-36ae-4d67-8ea4-71058850eefb)
-
-# AlgoQuant Backtester & Signal Engine 🚀
-
-![Capstone](https://img.shields.io/badge/Capstone-Complete-brightgreen.svg)
-![Python](https://img.shields.io/badge/Python-3.10-blue.svg)
-![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
-![Build Status](https://github.com/Trojan3877/Algo-Quant-Backtester-/actions/workflows/tests.yml/badge.svg)
-![Coverage](https://img.shields.io/badge/Coverage-90%25-brightgreen)
-![Docker](https://img.shields.io/badge/Containerized-Docker-blue)
-![Backtesting](https://img.shields.io/badge/Algo%20Trading-Backtester-orange)
-![MLFlow](https://img.shields.io/badge/MLFlow-Tracking-blue)
-![Pandas](https://img.shields.io/badge/Data-Pandas-yellow)
-
-
-End-to-end **DevMLOps** platform for **algorithmic trading**:
-1. **Data Ingestion:** Snowflake & Kafka → Parquet  
-2. **Feature Engineering:** technical indicators with `ta`  
-3. **Modeling:** TensorFlow LSTM & PyTorch DQN  
-4. **Backtesting:** walk-forward analysis & PnL evaluation  
-5. **Serving:** FastAPI → Docker → Kubernetes → Helm  
-6. **Automation:** DVC pipelines, GitHub Actions CI/CD, Terraform IaC, Ansible config  
-7. **Monitoring & Tracking:** Prometheus & Grafana, MLflow experiments  
-8. **Security & Compliance:** IAM least-privilege, CodeQL, SECURITY.md  
+# 🧠📈 Algo-Quant-Backtester  
+A Professional, Modular Algorithmic Trading Backtesting Engine  
+Built by **Corey Leath (GitHub: Trojan3877)**  
+Targeting Big Tech & Big AI ML/AI Engineering Internships
 
 ---
+
+<img src="https://raw.githubusercontent.com/Trojan3877/brand-assets/main/quant-banner-light.png" width="100%">
+
+---
+
+# 🚀 Overview
+
+**Algo-Quant-Backtester** is a **production-grade, modular algorithmic trading engine** designed to mimic the workflow of real quant research and ML/AI engineering teams.
+
+The project supports:
+
+- ✔ Traditional indicator-based strategies  
+- ✔ Machine Learning strategies  
+- ✔ Feature engineering utilities  
+- ✔ Full test suite + CI/CD  
+- ✔ MLFlow experiment tracking  
+- ✔ Dockerized execution  
+- ✔ Clean, scalable architecture  
+
+This repository demonstrates **L5/L6 engineering competencies**, including:
+
+- Reproducible pipelines  
+- Modular code design  
+- Machine learning integration  
+- Automated testing  
+- Containerization  
+- Professional-level documentation  
+
+---
+
+# 🏆 Badges
+
+![Build Status](https://github.com/Trojan3877/Algo-Quant-Backtester-/actions/workflows/tests.yml/badge.svg)
+![Python](https://img.shields.io/badge/python-3.10-blue)
+![MLFlow](https://img.shields.io/badge/MLFlow-enabled-orange)
+![Backtesting](https://img.shields.io/badge/Backtester-Production--Ready-green)
+![Docker](https://img.shields.io/badge/Docker-Ready-blue)
+![Coverage](https://img.shields.io/badge/Tests-Passing-brightgreen)
+
+---
+
+# 🧩 Architecture
+
+├── src
+│ ├── strategies/
+│ │ ├── sma_strategy.py
+│ │ ├── rsi_strategy.py
+│ │ ├── macd_strategy.py
+│ │ └── ml_strategy.py
+│ ├── indicators/
+│ │ └── (EMA, SMA, RSI, MACD)
+│ ├── metrics/
+│ │ └── (Sharpe, Sortino, Win Rate, etc.)
+│ ├── data/
+│ │ └── data_loader.py
+│ ├── backtester.py
+│ ├── utils.py
+│ └── plotter.py
+├── tests/
+├── Dockerfile
+├── requirements.txt
+└── README.md
+---
+
+---
+
+# 💡 Key Features
+
+### 📊 **Multiple Strategy Types**
+- SMA crossover  
+- RSI reversion  
+- MACD trend strategy  
+- ML model-based strategies (XGBoost, LightGBM, etc.)
+
+### ⚙️ **Modular & Extensible**
+Every strategy lives in its own class and can be plugged into the backtester easily.
+
+### 🧮 **Quant Indicator Suite**
+- SMA  
+- EMA  
+- RSI  
+- MACD  
+
+### 📈 **Performance Metrics**
+- Sharpe Ratio  
+- Sortino Ratio  
+- Max Drawdown  
+- Cumulative Return  
+- Win Rate  
+
+### 📦 **Dockerized for Production**
+
+### 🧪 **Full Test Suite with CI/CD**
+- Indicators  
+- Strategies  
+- Backtester  
+- Utils  
+- Data loader  
+
+### 📚 **MLFlow Integration**
+Track:
+- hyperparameters  
+- model versions  
+- performance metrics  
+- experiment comparisons  
+
+---
+
+# ⚙️ Installation
+
+```bash
+git clone https://github.com/Trojan3877/Algo-Quant-Backtester-
+cd Algo-Quant-Backtester-
+pip install -r requirements.txt
 
 ## Quickstart
 
