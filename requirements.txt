@@ -39,3 +39,11 @@ rich==13.7.0
 # For notebooks
 ipykernel==6.29.0
 jupyterlab==4.1.0
+pandas>=2.0.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+pytest>=7.0.0
+streamlit>=1.30.0
+# Add any extra quantitative libraries you are importing here, such as:
+# yfinance
+# ta
