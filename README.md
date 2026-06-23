@@ -12,7 +12,6 @@
 ![Repo Size](https://img.shields.io/github/repo-size/Trojan3877/Algo-Quant-Backtester-)
 ![Stars](https://img.shields.io/github/stars/Trojan3877/Algo-Quant-Backtester-?style=social)
 ![Build Status](https://github.com/Trojan3877/Algo-Quant-Backtester-/actions/workflows/ci.yml/badge.svg)
-
 📈 Algo Quant Backtester
 
 A modular algorithmic trading backtesting engine designed to evaluate quantitative strategies using historical market data, performance metrics, and simulation pipelines.
