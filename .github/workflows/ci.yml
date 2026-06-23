@@ -53,3 +53,13 @@ jobs:
             results/
             plots/
           if-no-files-found: ignore
+          # 3. Upgrade package managers and compile required platform modules safely
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Dynamic cleaning: strips out heavy deep learning wheels from the cloud runner context
+          sed -i '/torch/d' requirements.txt
+          sed -i '/jupyter/d' requirements.txt
+          sed -i '/ipykernel/d' requirements.txt
+          
+          pip install -r requirements.txt
