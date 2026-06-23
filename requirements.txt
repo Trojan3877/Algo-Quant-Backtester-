@@ -1,31 +1,33 @@
-# Core numerical computing
-numpy>=1.24.0,<1.25.0
-pandas==2.2.1
+# Core numerical computing & time series analysis
+numpy>=1.24.2
+pandas>=2.2.1
 
-# Plotting and visualization
-matplotlib==3.8.2
-seaborn==0.13.2
+# Plotting, charts and telemetry visualization
+matplotlib>=3.8.2
+seaborn>=0.13.2
 
-# Machine learning
-scikit-learn==1.4.1
-xgboost==2.0.3
-lightgbm==4.3.0
+# Machine learning algorithms & scoring models
+scikit-learn>=1.4.1
+xgboost>=2.0.3
+lightgbm>=4.3.0
 
-# ML Experiment tracking
-mlflow==2.11.3
+# ML Experiment tracking & model versioning
+mlflow>=2.11.3
 
-# Utilities & Configuration
-pyyaml==6.0.1
-python-dotenv==1.0.1
+# Utilities & environment orchestration configurations
+pyyaml>=6.0.1
+python-dotenv>=1.0.1
 
-# Performance Acceleration (Now aligns cleanly with NumPy version constraint)
-numba==0.58.1
-pyarrow==15.0.0
+# Performance compilation acceleration
+numba>=0.58.1
+pyarrow>=15.0.0
 
-# Logging utilities & Dashboarding
-rich==13.7.0
+# Production-grade console logging utilities
+rich>=13.7.0
+
+# Testing & Continuous Integration suites
+pytest>=8.0.0
+pytest-cov>=5.0.0
+
+# Operational user observability control panel
 streamlit>=1.30.0
-
-# Testing + CI/CD Execution
-pytest==8.0.0
-pytest-cov==5.0.0
