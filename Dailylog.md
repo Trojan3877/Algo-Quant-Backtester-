@@ -27,4 +27,5 @@ This log documents the incremental engineering decisions, performance refactorin
 
 ### 🟡 June 12, 2026 — Historical Data Ingestion & Tick Vector Simulation Baseline
 * Programmed and committed core file processing modules to parse raw historical ticker arrays and order book depth simulations.
-* Integrated core mathematical matrix formulas to evaluate rolling sharp ratios, execution slip parameters, and historical maximum drawdown indicators.
+* Integrated core mathematical matrix formulas to evaluate rolling Sharpe ratios, execution slip parameters, and historical maximum drawdown indicators.
+
